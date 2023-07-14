@@ -1,7 +1,4 @@
-from tkinter import filedialog
-
 from PIL import Image
-import tensorflow as tf
 import numpy as np
 from tensorflow.keras.models import load_model
 
