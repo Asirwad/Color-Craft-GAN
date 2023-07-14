@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 
 def colorize(filepath):
     # Load the saved generator model
-    generator = load_model('model/final_model.h5')
+    generator = load_model('model/model.h5')
 
     # Load and preprocess the grayscale image
     grayscale_image = Image.open(filepath).resize((120, 120)).convert('L')

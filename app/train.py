@@ -113,4 +113,4 @@ for e in range(num_epochs):
     generator.save_weights(checkpoint_path)
 
 # Final save of the model
-generator.save('final_model.h5')
+generator.save('model.h5')
