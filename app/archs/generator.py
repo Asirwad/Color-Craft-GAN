@@ -1,6 +1,5 @@
 import tensorflow as tf
 from tensorflow import keras
-from keras.layers import Conv2DTranspose
 
 
 def get_generator_model(img_size):
@@ -30,19 +29,19 @@ def get_generator_model(img_size):
     bottleneck = tf.keras.layers.Conv2D(128, kernel_size=(3, 3), strides=1, activation='tanh', padding='same')(conv3)
 
     concat1 = tf.keras.layers.Concatenate()([bottleneck, conv3])
-    conv_up_3 = Conv2DTranspose(128, kernel_size=(3, 3), strides=1, activation='relu')(concat1)
-    conv_up_3 = Conv2DTranspose(128, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_3)
-    conv_up_3 = Conv2DTranspose(64, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_3)
+    conv_up_3 = tf.keras.layers.Conv2DTranspose(128, kernel_size=(3, 3), strides=1, activation='relu')(concat1)
+    conv_up_3 = tf.keras.layers.Conv2DTranspose(128, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_3)
+    conv_up_3 = tf.keras.layers.Conv2DTranspose(64, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_3)
 
     concat2 = tf.keras.layers.Concatenate()([conv_up_3, conv2])
-    conv_up_2 = Conv2DTranspose(64, kernel_size=(3, 3), strides=1, activation='relu')(concat2)
-    conv_up_2 = Conv2DTranspose(64, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_2)
-    conv_up_2 = Conv2DTranspose(32, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_2)
+    conv_up_2 = tf.keras.layers.Conv2DTranspose(64, kernel_size=(3, 3), strides=1, activation='relu')(concat2)
+    conv_up_2 = tf.keras.layers.Conv2DTranspose(64, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_2)
+    conv_up_2 = tf.keras.layers.Conv2DTranspose(32, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_2)
 
     concat3 = tf.keras.layers.Concatenate()([conv_up_2, conv1])
-    conv_up_1 = Conv2DTranspose(32, kernel_size=(3, 3), strides=1, activation='relu')(concat3)
-    conv_up_1 = Conv2DTranspose(32, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_1)
-    conv_up_1 = Conv2DTranspose(3, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_1)
+    conv_up_1 = tf.keras.layers.Conv2DTranspose(32, kernel_size=(3, 3), strides=1, activation='relu')(concat3)
+    conv_up_1 = tf.keras.layers.Conv2DTranspose(32, kernel_size=(3, 3), strides=1, activation='relu')(conv_up_1)
+    conv_up_1 = tf.keras.layers.Conv2DTranspose(3, kernel_size=(5, 5), strides=1, activation='relu')(conv_up_1)
 
     model = tf.keras.models.Model(inputs, conv_up_1)
     return model
