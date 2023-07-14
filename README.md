@@ -4,7 +4,7 @@ Enhanced Super Resolution
 </h1>
 
 <p align="center">
-  <img src="app/logo.png" alt="Project Logo" width="100">
+  <img src="app/logo.png" alt="Project Logo" width="200">
 </p>
 
 <p align="center">
