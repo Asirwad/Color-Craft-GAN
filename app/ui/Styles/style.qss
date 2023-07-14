@@ -1,0 +1,24 @@
+#browse_grey_but{
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 0px;
+    font-size: 15px;
+    font-weight: 500;
+}
+#browse_grey_but:hover {
+    background-color: #e81123;
+    color: #ffffff;
+    border: 0px;
+}
+#colorize_but{
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 0px;
+    font-size: 15px;
+    font-weight: 500;
+}
+#colorize_but:hover {
+    background-color: #3cde69;
+    color: #ffffff;
+    border: 0px;
+}

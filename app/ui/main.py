@@ -2,7 +2,7 @@ import sys
 import tensorflow as tf
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QLabel
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QFile, QTextStream
 
 from app.ui.components.backgroundwidget import BackgroundWidget
 
@@ -35,15 +35,25 @@ class MainAppWindow(QMainWindow):
         self.setCentralWidget(central_widget)
 
         # Add buttons to the main layout
-        button1 = QPushButton("Button 1", self)
-        button1.setGeometry(250, 572, 100, 50)  # Set position and size in pixels
+        browse_grey_but = QPushButton("Browse grey-scale image", self)
+        browse_grey_but.setObjectName("browse_grey_but")
+        browse_grey_but.setGeometry(177, 646, 222, 47)  # Set position and size in pixels
 
-        button2 = QPushButton("Button 2", self)
-        button2.setGeometry(450, 572, 100, 50)  # Set position and size in pixels
+        colorize_but = QPushButton("Colorize image", self)
+        colorize_but.setObjectName("colorize_but")
+        colorize_but.setGeometry(422, 646, 223, 47)  # Set position and size in pixels
+
+    def load_stylesheet(self):
+        styleshet = QFile("Styles/style.qss")
+        if styleshet.open(QFile.ReadOnly | QFile.Text):
+            print("hello")
+            stream = QTextStream(styleshet)
+            self.setStyleSheet(stream.readAll())
 
 
 QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
 app = QApplication(sys.argv)
 window = MainAppWindow()
+window.load_stylesheet()
 window.show()
 sys.exit(app.exec_())
