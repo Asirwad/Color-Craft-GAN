@@ -2,3 +2,4 @@ tensorflow
 Pillow
 scikit-learn
 numpy
+PyQt5
