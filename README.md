@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <img src="app/logo.png" alt="Project Logo" width="200">
+  <img src="app/logo.png" alt="Project Logo" width="100">
 </p>
 
 <p align="center">
