@@ -47,13 +47,13 @@ To get started with our project, follow these steps:
 
 2. **Install Dependencies**: Install the required dependencies by running `pip install -r requirements.txt`.
 
-3. **Prepare Your Dataset**: Organize your cover and secret images dataset and place them in the appropriate directories.
+3. **Prepare Your Dataset**: Organize your image dataset and place them in the appropriate directories.
 
-4. **Customize Configuration**: Modify the configuration files to set the desired parameters for the models and encryption algorithms.
+4. **Customize Configuration**: Modify the configuration files to set the desired parameters for the models.
 
 5. **Train the Models**: Run the training script to train the CNN models and ESRGAN: `python train.py`.
 
-6. **Explore the Scripts**: Utilize the provided scripts to hide, encrypt, reveal, and enhance images based on your specific requirements.
+6. **Explore the Scripts**: Utilize the provided colorize.py script to run the saved model: `python colorize.py`.
 
 ## Contributing
 
