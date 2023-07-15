@@ -102,7 +102,7 @@ checkpoint_callback = ModelCheckpoint(
     mode='min',
     verbose=1
 )
-num_epochs = 50
+num_epochs = 200
 
 for e in range(num_epochs):
     for (x_component, y_component) in dataset:
