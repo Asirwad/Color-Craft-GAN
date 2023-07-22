@@ -1,29 +1,49 @@
-#browse_grey_but{
-    color: #ffffff;
-    padding: 8px 16px;
+#central_widget {
+    background-color: #16154e;
     border-radius: 0px;
-    font-size: 15px;
-    font-weight: 500;
 }
-#browse_grey_but:hover {
-    background-color: #ffd04d;
-    color: #2b2b2b;
-    border: 0px;
-}
-#colorize_but{
-    color: #ffffff;
-    font-family: Oswald, Arial, sans-serif;
+#continue_button {
+    background-color: #ffa6fa;
+    color: #16154e;
+    border-radius: 20px;
     padding: 8px 16px;
-    border-radius: 0px;
-    font-size: 15px;
-    font-weight: 500;
 }
-#colorize_but:hover {
+
+#continue_button:hover {
     background-color: #3cde69;
     color: #ffffff;
     border: 0px;
 }
-#central_widget {
-    background-color: #0b001a;
-    border-radius: 1px;
+
+#buttons {
+  position: relative;
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 1.5px solid #ff00d8;
+  letter-spacing: 1px;
+  color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 #000000;
 }
+#buttons:hover {
+  background: #ff00d8;
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+}
+
+#download_button {
+  position: relative;
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 1.5px solid #44ff91;
+  letter-spacing: 1px;
+  color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 #000000;
+}
+#download_button:hover {
+  background: #44ff91;
+  border: 0px;
+  color: #000000;
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+}
+
