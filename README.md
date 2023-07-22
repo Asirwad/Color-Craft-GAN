@@ -55,6 +55,12 @@ To get started with our project, follow these steps:
 
 6. **Explore the Scripts**: Utilize the provided colorize.py script to run the saved model: `python main_CLI_v1.py`.
 
+## Welcome screen
+
+<p align="center">
+  <img src="app/ui/assets/readme_assets/welcome.png" alt="Welcome" width="1000">
+</p>
+
 ## Contributing
 
 We welcome contributions from the open source community. If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
