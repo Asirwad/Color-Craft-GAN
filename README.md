@@ -61,6 +61,12 @@ To get started with our project, follow these steps:
   <img src="app/ui/assets/readme_assets/welcome.png" alt="Welcome" width="1000">
 </p>
 
+## Main window
+
+<p align="center">
+  <img src="app/ui/assets/readme_assets/colorize.png" alt="Main" width="1000">
+</p>
+
 ## Contributing
 
 We welcome contributions from the open source community. If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
