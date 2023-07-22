@@ -1,14 +1,22 @@
+import os.path
 import sys
-from PyQt5.QtGui import QIcon, QFont, QPixmap
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QHBoxLayout, QVBoxLayout, QWidget, QPushButton, QGridLayout, \
-    QSpacerItem, QSizePolicy, QLabel
+    QSpacerItem, QSizePolicy, QLabel, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt, QFile, QTextStream
-from app.ui.components.backgroundwidget import BackgroundWidget
 
+from app.colorize import colorize
+from app.ui.components.backgroundwidget import BackgroundWidget
+import cv2
 
 class MainAppWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        # vars
+        self.download_button = None
+        self.gl_image_filepath = None
+        self.gl_image = None
+        self.color_image = None
         # set window properties
         self.setWindowIcon(QIcon("assets/icon.ico"))
         self.setGeometry(200, 200, 1400, 800)
@@ -55,6 +63,7 @@ class MainAppWindow(QMainWindow):
             self.setStyleSheet(stream.readAll())
 
     def show_colorize_page(self):
+        self.gl_image_filepath = None
         self.main_content.set_background_image("assets/component_bg/colorize_page_bg.png")
         self.clear_main_layout()
 
@@ -65,7 +74,7 @@ class MainAppWindow(QMainWindow):
         title_label.setStyleSheet("font-size: 24px; color: #ffffff; margin-bottom: 20px;")
         v_layout.addWidget(title_label)
 
-        model_path_label = QLabel("<h5>      Model Path: app/model/model.h5</h5>")
+        model_path_label = QLabel("<h5>      Model Path: app/model/CCGAN_Model.h5</h5>")
         model_path_label.setStyleSheet("font-size: 16px; color: #c6c6c6; margin-bottom: 20px;")
         model_path_label.setAlignment(Qt.AlignCenter)
         v_layout.addWidget(model_path_label)
@@ -95,17 +104,17 @@ class MainAppWindow(QMainWindow):
         h_layout_for_images = QHBoxLayout()
 
         # image display
-        gl_image = QLabel()
-        gl_image.setAlignment(Qt.AlignCenter)
+        self.gl_image = QLabel()
+        self.gl_image.setAlignment(Qt.AlignCenter)
         pixmap = QPixmap("assets/image_dummies/grey_dummy.png")
-        gl_image.setPixmap(pixmap.scaled(256, 256, Qt.KeepAspectRatio))
-        h_layout_for_images.addWidget(gl_image)
+        self.gl_image.setPixmap(pixmap.scaled(256, 256, Qt.KeepAspectRatio))
+        h_layout_for_images.addWidget(self.gl_image)
 
-        color_image = QLabel()
-        color_image.setAlignment(Qt.AlignCenter)
+        self.color_image = QLabel()
+        self.color_image.setAlignment(Qt.AlignCenter)
         pixmap = QPixmap("assets/image_dummies/color_dummy.png")
-        color_image.setPixmap(pixmap.scaled(256, 256, Qt.KeepAspectRatio))
-        h_layout_for_images.addWidget(color_image)
+        self.color_image.setPixmap(pixmap.scaled(256, 256, Qt.KeepAspectRatio))
+        h_layout_for_images.addWidget(self.color_image)
 
         h_layout_for_images_widget = QWidget()
         h_layout_for_images_widget.setLayout(h_layout_for_images)
@@ -123,21 +132,21 @@ class MainAppWindow(QMainWindow):
         browse_button = QPushButton("BROWSE")
         browse_button.setObjectName("buttons")
         browse_button.setFont(button_font)
-        browse_button.clicked.connect(lambda: self.browse_gl_image())
+        browse_button.clicked.connect(lambda: self.browse_gl_image(self.gl_image))
         button_layout.addWidget(browse_button)
 
         colorize_button = QPushButton("COLORIZE")
         colorize_button.setObjectName("buttons")
         colorize_button.setFont(button_font)
-        colorize_button.clicked.connect(lambda: self.browse_gl_image())
+        colorize_button.clicked.connect(lambda: self.colorize_image(self.color_image))
         button_layout.addWidget(colorize_button)
 
-        download_button = QPushButton("DOWNLOAD")
-        download_button.setObjectName("download_button")
-        download_button.setFont(button_font)
-        #download_button.setEnabled(False)
-        download_button.clicked.connect(lambda: self.browse_gl_image())
-        button_layout.addWidget(download_button)
+        self.download_button = QPushButton("DOWNLOAD")
+        self.download_button.setObjectName("download_button")
+        self.download_button.setFont(button_font)
+        self.download_button.setEnabled(False)
+        self.download_button.clicked.connect(lambda: self.download_image())
+        button_layout.addWidget(self.download_button)
 
         button_layout_widget = QWidget()
         button_layout_widget.setLayout(button_layout)
@@ -153,8 +162,36 @@ class MainAppWindow(QMainWindow):
             if child.widget():
                 child.widget().deleteLater()
 
-    def browse_gl_image(self):
-        pass
+    def browse_gl_image(self, label):
+        file_dialog = QFileDialog()
+        gl_image_filepath, _ = file_dialog.getOpenFileName(self, "Select grey scale image")
+        if gl_image_filepath:
+            self.gl_image_filepath = gl_image_filepath
+
+            image = cv2.imread(gl_image_filepath)
+            gl_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            height, width = gl_image.shape
+            bytes_per_line = width
+            pixmap = QPixmap.fromImage(QImage(gl_image.data, width, height, bytes_per_line, QImage.Format_Grayscale8))
+
+            label.setPixmap(pixmap.scaled(256, 256, Qt.KeepAspectRatio))
+
+    def colorize_image(self, label):
+        if self.gl_image_filepath is None:
+            QMessageBox.information(self, "Error", "Please select the grey image")
+            return
+        color_image_filepath = colorize(self.gl_image_filepath)
+
+        if os.path.exists(color_image_filepath):
+            print(f"Image saved to {color_image_filepath}")
+            pixmap = QPixmap(color_image_filepath).scaled(256, 256, Qt.KeepAspectRatio)
+            label.setPixmap(pixmap)
+            self.download_button.setEnabled(True)
+        else:
+            QMessageBox.critical(self, "Error", "Failed to colorize the image")
+
+    def download_image(self):
+        QMessageBox.information(self, "Download", "Downloaded the image...")
 
 
 try:

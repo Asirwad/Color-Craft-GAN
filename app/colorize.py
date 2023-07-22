@@ -4,22 +4,26 @@ from tensorflow.keras.models import load_model
 
 
 def colorize(filepath):
-    # Load the saved generator model
-    generator = load_model('model/model.h5')
+    try:
+        # Load the saved generator model
+        generator = load_model('C:/Users/asirw/PycharmProjects/Color-Craft-GAN/app/model/CCGAN_Model.h5')
 
-    # Load and preprocess the grayscale image
-    grayscale_image = Image.open(filepath).resize((120, 120)).convert('L')
-    grayscale_array = (np.asarray(grayscale_image) / 255).reshape((1, 120, 120, 1))
+        # Load and preprocess the grayscale image
+        grayscale_image = Image.open(filepath).resize((120, 120)).convert('L')
+        grayscale_array = (np.asarray(grayscale_image) / 255).reshape((1, 120, 120, 1))
 
-    # Colorize the grayscale image using the generator model
-    colorized_image = generator.predict(grayscale_array)
+        # Colorize the grayscale image using the generator model
+        colorized_image = generator.predict(grayscale_array)
 
-    # Convert colorized image array to PIL Image
-    colorized_pil_image = Image.fromarray((colorized_image[0] * 255).astype('uint8')).resize((120, 120))
+        # Convert colorized image array to PIL Image
+        colorized_pil_image = Image.fromarray((colorized_image[0] * 255).astype('uint8')).resize((120, 120))
 
-    # Save the colorized image
-    color_image_filepath = filepath.replace('.jpg', '_colorized.jpg')
-    colorized_pil_image.save(color_image_filepath)
+        # Save the colorized image
+        color_image_filepath = filepath.replace('.jpg', '_colorized.jpg')
+        colorized_pil_image.save(color_image_filepath)
 
-    # Return the saved color image filepath
-    return color_image_filepath
+        # Return the saved color image filepath
+        return color_image_filepath
+
+    except Exception as e:
+        print(e)
