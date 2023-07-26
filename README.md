@@ -53,7 +53,7 @@ To get started with our project, follow these steps:
 
 5. **Train the Models**: Run the training script to train the CNN models and ESRGAN: `python train.py`.
 
-6. **Explore the Scripts**: Utilize the provided colorize.py script to run the saved model: `python main_CLI_v1.py`.
+6. **Explore the Scripts**: Utilize the provided colorize.py script to run the saved model: `python main_CLI_v1.py` for CLI version <br>and `python ui\main_ui.py` for GUI app.
 
 ## Welcome screen
 
