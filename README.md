@@ -75,7 +75,7 @@ We welcome contributions from the open source community. If you find any issues 
 
 We would like to acknowledge the following resources and libraries used in this project:
 
-- <img src="https://www.tensorflow.org/images/tf_logo_social.png" alt="TensorFlow" width="80" align="center"> TensorFlow: [https://www.tensorflow.org/](https://www.tensorflow.org/)
+- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/1915px-Tensorflow_logo.svg.png" alt="TensorFlow" width="45" align="center"> TensorFlow: [https://www.tensorflow.org/](https://www.tensorflow.org/)
 
 ## Contact
 
